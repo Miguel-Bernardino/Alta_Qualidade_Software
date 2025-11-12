@@ -8,7 +8,7 @@ pedidos = [
     {"cliente": "PetroPark", "produto": "lubrificante", "qtd": 12, "cupom": "LUB2"},
 ]
 
-clientes = [
+clientses = [
     {"nome": "Ana Paula", "email": "ana@@petrobahia", "cnpj": "123"},
     {"nome": "Carlos", "email": "carlos@petrobahia.com", "cnpj": "456"},
 ]
