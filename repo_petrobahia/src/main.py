@@ -4,10 +4,10 @@ Aplica validações, escreve o arquivo clientes.txt com schema,
 registra clientes e processa pedidos usando serviços de domínio.
 """
 
-from repositories.cliente_repository import TxtClienteRepository
 from models.cliente import Cliente
-from services.pedido_service import PedidoService
 from persistence.produtos_persistencia import ProdutosPersistencia
+from repositories.cliente_repository import TxtClienteRepository
+from services.pedido_service import PedidoService
 
 CLIENTES_FILE = "clientes.txt"
 

@@ -13,12 +13,14 @@ BASES: Dict[str, float] = {
     "lubrificante": 25.0,
 }
 
+
 class ProdutosPersistencia:
-def init(self):
-# no futuro ler de arquivo/DB; por enquanto usa dicionário em memória
-self.bases = BASES.copy()
+    def __init__(self):
+        # no futuro ler de arquivo/DB; por enquanto usa dicionário em memória
+        self.bases = BASES.copy()
 
-def obter_preco_base(self, tipo: str) -> float:
-    return float(self.bases.get(tipo, 0.0))
+    def obter_preco_base(self, tipo: str) -> float:
+        return float(self.bases.get(tipo, 0.0))
 
-def listar_produtos(self):
+    def listar_produtos(self):
+        return list(self.bases.keys())
