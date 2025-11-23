@@ -29,6 +29,6 @@ class ItemPedido:
         self.preco_bruto = self.preco_unitario * self.quantidade
 
         self.desconto_produto = self.produto.politica_desconto.calcular_desconto(self)
-        self.desconto_cupom = self.cupom.calcular_desconto(self.preco_bruto)
+        self.desconto_cupom = self.cupom.calcular_desconto(self.preco_bruto, self.produto.tipo)
 
         self.preco_final = max(self.preco_bruto - self.desconto_produto - self.desconto_cupom, 0.0)

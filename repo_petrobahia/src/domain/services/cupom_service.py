@@ -8,15 +8,20 @@ class Cupom(ABC):
     """
 
     @abstractmethod
-    def calcular_desconto(self, preco_bruto: float) -> float:
-        """Calcula o valor de desconto a partir do preço bruto."""
+    def calcular_desconto(self, preco_bruto: float, produto_tipo: str = "") -> float:
+        """Calcula o valor de desconto a partir do preço bruto.
+        
+        Args:
+            preco_bruto: Valor sem desconto
+            produto_tipo: Tipo do produto (opcional, para cupons específicos)
+        """
         raise NotImplementedError
 
 
 class CupomNulo(Cupom):
     """Representa ausência de cupom (Null Object Pattern)."""
 
-    def calcular_desconto(self, preco_bruto: float) -> float:
+    def calcular_desconto(self, preco_bruto: float, produto_tipo: str = "") -> float:
         return 0.0
 
 
@@ -28,7 +33,7 @@ class CupomPercentual(Cupom):
             raise ValueError("Percentual deve estar entre 0 e 1.")
         self._percentual = percentual
 
-    def calcular_desconto(self, preco_bruto: float) -> float:
+    def calcular_desconto(self, preco_bruto: float, produto_tipo: str = "") -> float:
         return preco_bruto * self._percentual
 
 
@@ -40,8 +45,23 @@ class CupomValorFixo(Cupom):
             raise ValueError("Valor fixo deve ser não-negativo.")
         self._valor = valor
 
-    def calcular_desconto(self, preco_bruto: float) -> float:
+    def calcular_desconto(self, preco_bruto: float, produto_tipo: str = "") -> float:
         return min(self._valor, preco_bruto)
+
+
+class CupomLubrificante(Cupom):
+    """Cupom de valor fixo válido apenas para lubrificantes."""
+
+    def __init__(self, valor: float):
+        if valor < 0:
+            raise ValueError("Valor fixo deve ser não-negativo.")
+        self._valor = valor
+
+    def calcular_desconto(self, preco_bruto: float, produto_tipo: str = "") -> float:
+        """Aplica desconto apenas se o produto for lubrificante."""
+        if produto_tipo.lower() == "lubrificante":
+            return min(self._valor, preco_bruto)
+        return 0.0
 
 
 # Fábrica de cupons por código (pode ser movida para um repositório depois)
@@ -51,7 +71,7 @@ class CupomFactory:
     _CUPONS = {
         "MEGA10": CupomPercentual(0.10),
         "NOVO5": CupomPercentual(0.05),
-        "LUB2": CupomValorFixo(2.0),
+        "LUB2": CupomLubrificante(2.0),
     }
 
     @classmethod

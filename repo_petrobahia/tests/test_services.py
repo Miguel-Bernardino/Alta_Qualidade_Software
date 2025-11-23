@@ -7,7 +7,12 @@ from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
 from src.domain.policies.politica_desconto_produto_none import PoliticaDescontoProdutoNone
-from src.domain.services.cupom_service import CupomFactory, CupomNulo, CupomPercentual
+from src.domain.services.cupom_service import (
+    CupomFactory,
+    CupomLubrificante,
+    CupomNulo,
+    CupomPercentual,
+)
 from src.domain.services.produto_factory import ProdutoFactory
 from src.domain.services.validar_pedido import ValidadorPedido
 
@@ -32,6 +37,16 @@ class TestCupomService:
         cupom = CupomFactory.criar("INVALIDO")
         assert isinstance(cupom, CupomNulo)
         assert cupom.calcular_desconto(100.0) == 0.0
+
+    def test_cupom_lubrificante_aplica_desconto(self):
+        """Deve aplicar desconto LUB2 apenas para lubrificante."""
+        cupom = CupomFactory.criar("LUB2")
+        assert isinstance(cupom, CupomLubrificante)
+        # Aplica desconto para lubrificante
+        assert cupom.calcular_desconto(100.0, "lubrificante") == 2.0
+        # Não aplica para outros produtos
+        assert cupom.calcular_desconto(100.0, "diesel") == 0.0
+        assert cupom.calcular_desconto(100.0, "gasolina") == 0.0
 
 
 class TestProdutoFactory:
