@@ -1,2 +1,4 @@
-{'nome': 'Ana Paula', 'email': 'ana@@petrobahia', 'cnpj': '123'}
-{'nome': 'Carlos', 'email': 'carlos@petrobahia.com', 'cnpj': '456'}
+{'nome': 'TransLog', 'email': 'translog@empresa.com', 'cnpj': '04.252.011/0001-10'}
+{'nome': 'MoveMais', 'email': 'movemais@empresa.com', 'cnpj': '11.222.333/0001-81'}
+{'nome': 'EcoFrota', 'email': 'ecofrota@empresa.com', 'cnpj': '12.345.678/0001-90'}
+{'nome': 'PetroPark', 'email': 'petropark@empresa.com', 'cnpj': '98.765.432/0001-10'}

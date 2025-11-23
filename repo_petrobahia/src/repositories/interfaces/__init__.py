@@ -1,0 +1,1 @@
+"""Interfaces (ports) de repositórios."""
