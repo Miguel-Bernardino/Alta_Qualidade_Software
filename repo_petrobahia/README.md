@@ -350,8 +350,20 @@ pip install black isort pylint pytest pytest-cov
 ```
 
 ### Executar Aplicação
-```bash
-python src/main.py
+
+**Opção 1 - Como módulo (recomendado):**
+```powershell
+python -m src.main
+```
+
+**Opção 2 - Com PYTHONPATH:**
+```powershell
+$env:PYTHONPATH = (Get-Location).Path; python src/main.py
+```
+
+**Opção 3 - Script direto (após criar run.py na raiz):**
+```powershell
+python run.py
 ```
 
 **Saída esperada**:
