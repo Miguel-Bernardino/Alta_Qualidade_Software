@@ -20,19 +20,15 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 ### Funcionalidades
 - **Gestão de Clientes**: Cadastro com validação de email e CNPJ
 - **Catálogo de Produtos**: Diesel, Gasolina, Etanol, Lubrificante
-## 📊 Qualidade de Código
 - **Descontos Progressivos**: Por tipo de produto e quantidade
-```powershell
 - **Persistência**: Arquivos TXT com formato dict string
 
 ### Melhorias Implementadas
 - ✅ **Arquitetura Limpa (Clean Architecture)**
-```powershell
 - ✅ **Design Patterns** (Strategy, Factory, Repository, Null Object)
 - ✅ **Code Quality Tools** (Black, isort, Pylint 10.00/10)
-- ✅ **Testes Abrangentes** (32 testes, 63% cobertura)
+- ✅ **Testes Abrangentes** (33 testes, 63% cobertura)
 - ✅ **Type Hints** em todo o código
-```powershell
 
 ---
 
@@ -46,9 +42,6 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 │  (Orquestração, Casos de Uso)          │
 │  - ClienteService                       │
 │  - PedidoService                        │
-# Defina PYTHONPATH para o workspace (PowerShell)
-$env:PYTHONPATH = (Get-Location).Path
-
 │  - NotificacaoService                   │
 └─────────────────┬───────────────────────┘
                   │
@@ -61,12 +54,10 @@ $env:PYTHONPATH = (Get-Location).Path
 │  - Policies (Estratégias de Desconto)  │
 └─────────────────┬───────────────────────┘
                   │
- ✅ **33/33 testes passando** (100%)
 ┌─────────────────────────────────────────┐
 │         Infrastructure Layer            │
 │  (Persistência, I/O)                    │
 │  - ClienteRepositoryArquivo             │
-│   │   │   ├── cupom_factory.py             # Factory de Cupons (apenas fábrica)
 └─────────────────────────────────────────┘
 ```
 
@@ -85,20 +76,17 @@ $env:PYTHONPATH = (Get-Location).Path
 **Solução**: Interface `PoliticaDesconto` com implementações específicas
 
 ```python
-# PowerShell: defina PYTHONPATH e execute
-$env:PYTHONPATH = (Get-Location).Path
 # Interface
 class PoliticaDesconto(ABC):
     @abstractmethod
     def calcular_desconto(self, item) -> float:
         pass
 
-$env:PYTHONPATH = (Get-Location).Path
 # Implementações
-- PoliticaDescontoProdutoDisel: 5% acima 500L, 10% acima 1000L
-- PoliticaDescontoProdutoGasolina: R$ 100 fixo acima 200L
-- PoliticaDescontoProdutoEtanol: 3% acima 80L
-- PoliticaDescontoProdutoNone: Sem desconto
+# - PoliticaDescontoProdutoDisel: 5% acima 500L, 10% acima 1000L
+# - PoliticaDescontoProdutoGasolina: R$ 100 fixo acima 200L
+# - PoliticaDescontoProdutoEtanol: 3% acima 80L
+# - PoliticaDescontoProdutoNone: Sem desconto
 ```
 
 **Benefícios**: Fácil adicionar novas políticas sem modificar código existente (OCP)
@@ -276,7 +264,9 @@ Application:     0% ⚠️ (não testado)
 
 ### Executar Testes
 
-```bash
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
+
 # Todos os testes
 python -m pytest tests/ -v
 
@@ -285,11 +275,11 @@ python -m pytest tests/ --cov=src --cov-report=term-missing
 
 # Gerar relatório HTML
 python -m pytest tests/ --cov=src --cov-report=html
-# Abre htmlcov/index.html no navegador
+Start-Process htmlcov\index.html  # Abre no navegador
 ```
 
 ### Resultados
-- ✅ **32/32 testes passando** (100%)
+- ✅ **33/33 testes passando** (100%)
 - ⏱️ **Tempo de execução**: 0.22-0.63 segundos
 - 📊 **Cobertura geral**: 63%
 - 🎯 **Cobertura domain**: 90-100%
@@ -359,12 +349,12 @@ repo_petrobahia/
 ## 🚀 Como Executar
 
 ### Pré-requisitos
-```bash
+```powershell
 python --version  # Python 3.13+
 ```
 
 ### Instalação de Dependências
-```bash
+```powershell
 pip install black isort pylint pytest pytest-cov
 ```
 
@@ -403,16 +393,12 @@ Fim processamento PetroBahia
 ```
 
 ### Executar Testes
-```bash
-# Testes simples
+```powershell
+$env:PYTHONPATH = (Get-Location).Path
 python -m pytest tests/ -v
-
-# Com cobertura (terminal)
 python -m pytest tests/ --cov=src --cov-report=term-missing
-
-# Gerar relatório HTML
 python -m pytest tests/ --cov=src --cov-report=html
-Start-Process htmlcov\index.html  # Abre no navegador
+Start-Process htmlcov\index.html
 ```
 
 ### Verificar Qualidade
@@ -560,7 +546,7 @@ python -m pylint src/
 |----------|------|-----------|
 | Pylint Score | > 9.0 | **10.00/10** ✅ |
 | Cobertura de Testes | > 60% | **63%** ✅ |
-| Testes Passando | 100% | **32/32 (100%)** ✅ |
+| Testes Passando | 100% | **33/33 (100%)** ✅ |
 | Clean Architecture | Implementada | **Sim** ✅ |
 | SOLID Principles | Aplicados | **5/5** ✅ |
 | Design Patterns | 3+ | **4 patterns** ✅ |

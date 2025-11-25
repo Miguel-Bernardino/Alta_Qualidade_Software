@@ -11,3 +11,4 @@ class CupomLubrificante(Cupom):
         if produto_tipo.lower() == "lubrificante":
             return min(self._valor, preco_bruto)
         return 0.0
+        
