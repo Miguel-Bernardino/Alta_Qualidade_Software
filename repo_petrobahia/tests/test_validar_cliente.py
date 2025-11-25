@@ -1,4 +1,5 @@
 """Testes unitários para validação de clientes usando unittest."""
+
 import unittest
 
 from src.domain.exceptions import ValidationError

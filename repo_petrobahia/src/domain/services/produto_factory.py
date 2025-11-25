@@ -1,17 +1,17 @@
 """Factory para criação de produtos com políticas de desconto."""
 
 from src.domain.models.produto import Produto
-from src.domain.policies.politica_desconto import PoliticaDesconto
-from src.domain.policies.politica_desconto_produto_disel import (
+from src.domain.policies.desconto.politica_desconto import PoliticaDesconto
+from src.domain.policies.desconto.politica_desconto_produto_disel import (
     PoliticaDescontoProdutoDisel,
 )
-from src.domain.policies.politica_desconto_produto_etanol import (
+from src.domain.policies.desconto.politica_desconto_produto_etanol import (
     PoliticaDescontoProdutoEtanol,
 )
-from src.domain.policies.politica_desconto_produto_gasolina import (
+from src.domain.policies.desconto.politica_desconto_produto_gasolina import (
     PoliticaDescontoProdutoGasolina,
 )
-from src.domain.policies.politica_desconto_produto_none import (
+from src.domain.policies.desconto.politica_desconto_produto_none import (
     PoliticaDescontoProdutoNone,
 )
 

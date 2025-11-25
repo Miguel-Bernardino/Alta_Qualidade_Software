@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from src.domain.policies.politica_desconto import PoliticaDesconto
-from src.domain.policies.politica_desconto_produto_none import (
+from src.domain.policies.desconto.politica_desconto import PoliticaDesconto
+from src.domain.policies.desconto.politica_desconto_produto_none import (
     PoliticaDescontoProdutoNone,
 )
 

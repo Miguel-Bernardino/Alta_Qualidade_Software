@@ -1,4 +1,5 @@
 """Testes para serviços de domínio usando pytest."""
+
 import pytest
 
 from src.domain.exceptions import ValidationError
@@ -6,13 +7,13 @@ from src.domain.models.cliente import Cliente
 from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
-from src.domain.policies.politica_desconto_produto_none import PoliticaDescontoProdutoNone
-from src.domain.services.cupom_service import (
-    CupomFactory,
+from src.domain.policies.cupom import (
     CupomLubrificante,
     CupomNulo,
     CupomPercentual,
 )
+from src.domain.policies.desconto.politica_desconto_produto_none import PoliticaDescontoProdutoNone
+from src.domain.services.cupom_factory import CupomFactory
 from src.domain.services.produto_factory import ProdutoFactory
 from src.domain.services.validar_pedido import ValidadorPedido
 
@@ -76,9 +77,7 @@ class TestProdutoFactory:
         assert catalogo["etanol"].politica_desconto is not None
 
         # Lubrificante usa política None
-        assert isinstance(
-            catalogo["lubrificante"].politica_desconto, PoliticaDescontoProdutoNone
-        )
+        assert isinstance(catalogo["lubrificante"].politica_desconto, PoliticaDescontoProdutoNone)
 
 
 class TestValidadorPedido:
@@ -87,9 +86,7 @@ class TestValidadorPedido:
     def test_pedido_valido(self):
         """Deve aceitar pedido válido."""
         cliente = Cliente(email="teste@empresa.com", nome="Cliente Teste", cnpj="12345678000199")
-        produto = Produto(
-            tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone()
-        )
+        produto = Produto(tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone())
         item = ItemPedido(produto=produto, quantidade=200, cupom=CupomNulo())
         pedido = Pedido(cliente=cliente, itens=[item])
 
@@ -98,9 +95,7 @@ class TestValidadorPedido:
 
     def test_pedido_sem_cliente(self):
         """Deve rejeitar pedido sem cliente."""
-        produto = Produto(
-            tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone()
-        )
+        produto = Produto(tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone())
         item = ItemPedido(produto=produto, quantidade=100, cupom=CupomNulo())
         pedido = Pedido(cliente=None, itens=[item])
 

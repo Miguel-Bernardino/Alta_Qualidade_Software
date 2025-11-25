@@ -21,4 +21,6 @@ class NotificacaoService:
     def notificar_pedido_valor_alto(pedido: Pedido, limite: float = 5000.0) -> None:
         """Alerta sobre pedido de alto valor."""
         if pedido.preco_total >= limite:
-            print(f"⚠ ALERTA: Pedido de alto valor - {pedido.cliente.nome}: R$ {pedido.preco_total:.2f}")
+            print(
+                f"⚠ ALERTA: Pedido de alto valor - {pedido.cliente.nome}: R$ {pedido.preco_total:.2f}"
+            )

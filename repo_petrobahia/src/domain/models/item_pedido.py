@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from src.domain.models.produto import Produto
-from src.domain.services.cupom_service import Cupom, CupomNulo
+from src.domain.policies.cupom import Cupom, CupomNulo
 
 
 @dataclass

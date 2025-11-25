@@ -6,19 +6,19 @@ from src.domain.models.cliente import Cliente
 from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
-from src.domain.policies.politica_desconto_produto_disel import (
+from src.domain.policies.desconto.politica_desconto_produto_disel import (
     PoliticaDescontoProdutoDisel,
 )
-from src.domain.policies.politica_desconto_produto_etanol import (
+from src.domain.policies.desconto.politica_desconto_produto_etanol import (
     PoliticaDescontoProdutoEtanol,
 )
-from src.domain.policies.politica_desconto_produto_gasolina import (
+from src.domain.policies.desconto.politica_desconto_produto_gasolina import (
     PoliticaDescontoProdutoGasolina,
 )
-from src.domain.policies.politica_desconto_produto_none import (
+from src.domain.policies.desconto.politica_desconto_produto_none import (
     PoliticaDescontoProdutoNone,
 )
-from src.domain.services.cupom_service import CupomFactory
+from src.domain.services.cupom_factory import CupomFactory
 from src.repositories.interfaces.i_pedido_repository import IPedidoRepository
 
 

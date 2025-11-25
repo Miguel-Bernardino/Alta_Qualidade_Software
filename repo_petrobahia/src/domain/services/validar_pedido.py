@@ -30,4 +30,6 @@ class ValidadorPedido:
     @classmethod
     def _validar_itens(cls, pedido: Pedido) -> None:
         if len(pedido.itens) < cls.QUANTIDADE_MINIMA_ITENS:
-            raise ValidationError(f"Pedido deve ter no mínimo {cls.QUANTIDADE_MINIMA_ITENS} item(ns).")
+            raise ValidationError(
+                f"Pedido deve ter no mínimo {cls.QUANTIDADE_MINIMA_ITENS} item(ns)."
+            )

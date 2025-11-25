@@ -1,4 +1,5 @@
 """Testes para repositórios usando unittest com mocks."""
+
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -7,8 +8,8 @@ from src.domain.models.cliente import Cliente
 from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
-from src.domain.policies.politica_desconto_produto_none import PoliticaDescontoProdutoNone
-from src.domain.services.cupom_service import CupomNulo
+from src.domain.policies.cupom import CupomNulo
+from src.domain.policies.desconto.politica_desconto_produto_none import PoliticaDescontoProdutoNone
 from src.repositories.cliente_repository import ClienteRepositoryArquivo
 from src.repositories.pedido_repository import PedidoRepositoryArquivo
 
@@ -28,9 +29,7 @@ class TestClienteRepository(unittest.TestCase):
 
     def test_salvar_cliente(self):
         """Deve salvar cliente no arquivo."""
-        cliente = Cliente(
-            email="teste@empresa.com", nome="Empresa Teste", cnpj="12345678000199"
-        )
+        cliente = Cliente(email="teste@empresa.com", nome="Empresa Teste", cnpj="12345678000199")
         self.repository.salvar(cliente)
 
         # Verificar se arquivo foi criado
@@ -44,12 +43,8 @@ class TestClienteRepository(unittest.TestCase):
 
     def test_listar_clientes(self):
         """Deve listar clientes salvos."""
-        cliente1 = Cliente(
-            email="teste1@empresa.com", nome="Empresa 1", cnpj="11111111000199"
-        )
-        cliente2 = Cliente(
-            email="teste2@empresa.com", nome="Empresa 2", cnpj="22222222000199"
-        )
+        cliente1 = Cliente(email="teste1@empresa.com", nome="Empresa 1", cnpj="11111111000199")
+        cliente2 = Cliente(email="teste2@empresa.com", nome="Empresa 2", cnpj="22222222000199")
 
         self.repository.salvar(cliente1)
         self.repository.salvar(cliente2)
@@ -81,12 +76,8 @@ class TestPedidoRepository(unittest.TestCase):
 
     def test_salvar_pedido(self):
         """Deve salvar pedido no arquivo."""
-        cliente = Cliente(
-            email="teste@empresa.com", nome="Empresa Teste", cnpj="12345678000199"
-        )
-        produto = Produto(
-            tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone()
-        )
+        cliente = Cliente(email="teste@empresa.com", nome="Empresa Teste", cnpj="12345678000199")
+        produto = Produto(tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone())
         item = ItemPedido(produto=produto, quantidade=100, cupom=CupomNulo())
         pedido = Pedido(cliente=cliente, itens=[item])
 
@@ -103,12 +94,8 @@ class TestPedidoRepository(unittest.TestCase):
 
     def test_buscar_por_cliente(self):
         """Deve buscar pedidos por CNPJ do cliente."""
-        cliente1 = Cliente(
-            email="teste1@empresa.com", nome="Empresa 1", cnpj="11111111000199"
-        )
-        cliente2 = Cliente(
-            email="teste2@empresa.com", nome="Empresa 2", cnpj="22222222000199"
-        )
+        cliente1 = Cliente(email="teste1@empresa.com", nome="Empresa 1", cnpj="11111111000199")
+        cliente2 = Cliente(email="teste2@empresa.com", nome="Empresa 2", cnpj="22222222000199")
 
         produto = Produto(
             tipo="gasolina", preco=6.2, politica_desconto=PoliticaDescontoProdutoNone()

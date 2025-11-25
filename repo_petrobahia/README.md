@@ -20,19 +20,19 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 ### Funcionalidades
 - **Gestão de Clientes**: Cadastro com validação de email e CNPJ
 - **Catálogo de Produtos**: Diesel, Gasolina, Etanol, Lubrificante
-- **Sistema de Pedidos**: Criação e processamento com cálculo automático de preços
+## 📊 Qualidade de Código
 - **Descontos Progressivos**: Por tipo de produto e quantidade
-- **Sistema de Cupons**: Percentuais e valor fixo
+```powershell
 - **Persistência**: Arquivos TXT com formato dict string
 
 ### Melhorias Implementadas
 - ✅ **Arquitetura Limpa (Clean Architecture)**
-- ✅ **Princípios SOLID** aplicados em todo o código
+```powershell
 - ✅ **Design Patterns** (Strategy, Factory, Repository, Null Object)
 - ✅ **Code Quality Tools** (Black, isort, Pylint 10.00/10)
 - ✅ **Testes Abrangentes** (32 testes, 63% cobertura)
 - ✅ **Type Hints** em todo o código
-- ✅ **Documentação** completa com docstrings
+```powershell
 
 ---
 
@@ -46,6 +46,9 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 │  (Orquestração, Casos de Uso)          │
 │  - ClienteService                       │
 │  - PedidoService                        │
+# Defina PYTHONPATH para o workspace (PowerShell)
+$env:PYTHONPATH = (Get-Location).Path
+
 │  - NotificacaoService                   │
 └─────────────────┬───────────────────────┘
                   │
@@ -58,12 +61,12 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 │  - Policies (Estratégias de Desconto)  │
 └─────────────────┬───────────────────────┘
                   │
-                  ▼
+ ✅ **33/33 testes passando** (100%)
 ┌─────────────────────────────────────────┐
 │         Infrastructure Layer            │
 │  (Persistência, I/O)                    │
 │  - ClienteRepositoryArquivo             │
-│  - PedidoRepositoryArquivo              │
+│   │   │   ├── cupom_factory.py             # Factory de Cupons (apenas fábrica)
 └─────────────────────────────────────────┘
 ```
 
@@ -82,12 +85,15 @@ A **PetroBahia S.A.** é uma empresa fictícia do setor de óleo e gás. Este pr
 **Solução**: Interface `PoliticaDesconto` com implementações específicas
 
 ```python
+# PowerShell: defina PYTHONPATH e execute
+$env:PYTHONPATH = (Get-Location).Path
 # Interface
 class PoliticaDesconto(ABC):
     @abstractmethod
     def calcular_desconto(self, item) -> float:
         pass
 
+$env:PYTHONPATH = (Get-Location).Path
 # Implementações
 - PoliticaDescontoProdutoDisel: 5% acima 500L, 10% acima 1000L
 - PoliticaDescontoProdutoGasolina: R$ 100 fixo acima 200L
@@ -99,8 +105,13 @@ class PoliticaDesconto(ABC):
 
 ### 2. Factory Pattern
 **Problema**: Criação complexa de produtos com políticas de desconto  
+### Code Quality
+- Black (formatter)
+- isort (imports)
+- Pylint (linter)
 **Solução**: `ProdutoFactory` centraliza lógica de criação
 
+| Testes Passando | 100% | **33/33 (100%)** ✅ |
 ```python
 catalogo = ProdutoFactory.criar_catalogo_padrao()
 produto = ProdutoFactory.criar("diesel", preco=5.5, politica=MinhaPolítica())
@@ -300,14 +311,22 @@ repo_petrobahia/
 │   │   ├── services/                        # Serviços de Domínio
 │   │   │   ├── validar_cliente.py           # Validações Cliente
 │   │   │   ├── validar_pedido.py            # Validações Pedido
-│   │   │   ├── cupom_service.py             # Strategy Cupons
+│   │   │   ├── cupom_factory.py             # Factory Cupons
 │   │   │   └── produto_factory.py           # Factory Produtos
-│   │   ├── policies/                        # Estratégias de Desconto
-│   │   │   ├── politica_desconto.py         # Interface Strategy
-│   │   │   ├── politica_desconto_produto_disel.py
-│   │   │   ├── politica_desconto_produto_gasolina.py
-│   │   │   ├── politica_desconto_produto_etanol.py
-│   │   │   └── politica_desconto_produto_none.py
+│   │   ├── policies/                        # Estratégias (Domain Policies)
+│   │   │   ├── desconto/                    # Strategy de desconto por produto
+│   │   │   │   ├── politica_desconto.py
+│   │   │   │   ├── politica_desconto_produto_disel.py
+│   │   │   │   ├── politica_desconto_produto_gasolina.py
+│   │   │   │   ├── politica_desconto_produto_etanol.py
+│   │   │   │   └── politica_desconto_produto_none.py
+│   │   │   └── cupom/                       # Strategy de cupons
+│   │   │       ├── base.py                  # Interface Cupom
+│   │   │       ├── nulo.py                  # CupomNulo
+│   │   │       ├── percentual.py            # CupomPercentual
+│   │   │       ├── valor_fixo.py            # CupomValorFixo
+│   │   │       ├── lubrificante.py          # CupomLubrificante (LUB2)
+│   │   │       └── __init__.py              # Exports para import simplificado
 │   │   └── exceptions.py                    # Exceções customizadas
 │   ├── application/                         # Camada de Aplicação
 │   │   └── services/

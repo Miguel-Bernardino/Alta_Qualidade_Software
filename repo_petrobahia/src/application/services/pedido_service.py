@@ -2,7 +2,7 @@ from src.domain.models.cliente import Cliente
 from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
-from src.domain.services.cupom_service import CupomFactory
+from src.domain.services.cupom_factory import CupomFactory
 from src.domain.services.validar_pedido import ValidadorPedido
 from src.repositories.interfaces.i_pedido_repository import IPedidoRepository
 

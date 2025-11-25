@@ -1,13 +1,18 @@
 """Testes para modelos de domínio usando pytest."""
+
 import pytest
 
 from src.domain.models.cliente import Cliente
 from src.domain.models.item_pedido import ItemPedido
 from src.domain.models.pedido import Pedido
 from src.domain.models.produto import Produto
-from src.domain.policies.politica_desconto_produto_disel import PoliticaDescontoProdutoDisel
-from src.domain.policies.politica_desconto_produto_none import PoliticaDescontoProdutoNone
-from src.domain.services.cupom_service import CupomNulo, CupomPercentual, CupomValorFixo
+from src.domain.policies.cupom import CupomNulo, CupomPercentual, CupomValorFixo
+from src.domain.policies.desconto.politica_desconto_produto_disel import (
+    PoliticaDescontoProdutoDisel,
+)
+from src.domain.policies.desconto.politica_desconto_produto_none import (
+    PoliticaDescontoProdutoNone,
+)
 
 
 class TestCliente:
@@ -66,9 +71,7 @@ class TestItemPedido:
 
     def test_item_pedido_com_cupom_percentual(self):
         """Deve calcular preço com cupom de desconto percentual."""
-        produto = Produto(
-            tipo="etanol", preco=4.8, politica_desconto=PoliticaDescontoProdutoNone()
-        )
+        produto = Produto(tipo="etanol", preco=4.8, politica_desconto=PoliticaDescontoProdutoNone())
         cupom = CupomPercentual(percentual=0.10)
         item = ItemPedido(produto=produto, quantidade=50, cupom=cupom)
 
@@ -88,9 +91,7 @@ class TestItemPedido:
 
     def test_item_pedido_quantidade_invalida(self):
         """Deve rejeitar quantidade zero ou negativa."""
-        produto = Produto(
-            tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone()
-        )
+        produto = Produto(tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoNone())
         cupom = CupomNulo()
 
         with pytest.raises(ValueError, match="Quantidade deve ser positiva"):
@@ -102,7 +103,7 @@ class TestItemPedido:
             tipo="diesel", preco=5.5, politica_desconto=PoliticaDescontoProdutoDisel()
         )
         item = ItemPedido(produto=produto, quantidade=1200, cupom=CupomNulo())
-        
+
         # Desconto produto: 1200 * 5.5 * 0.10 = 660
         assert item.desconto_produto == 660.0
         # Preço final: (1200 * 5.5) - 660 = 6600 - 660 = 5940

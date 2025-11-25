@@ -1,4 +1,4 @@
-from .desconto.politica_desconto import PoliticaDesconto
+from .politica_desconto import PoliticaDesconto
 
 
 class PoliticaDescontoProdutoDisel(PoliticaDesconto):
