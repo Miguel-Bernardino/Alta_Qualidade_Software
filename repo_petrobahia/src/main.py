@@ -76,10 +76,10 @@ def executar():
 
             pedido = pedido_service.processar_e_salvar(cliente, itens_dados, catalogo)
             print(f"✓ Pedido criado para {cliente.nome}: R$ {pedido.preco_total:.2f}")
-        except ValidationError as e:
-            print(f"✗ Erro validação pedido {pedido_dados['cliente']}: {e}")
-        except Exception as e:
-            print(f"✗ Erro inesperado pedido {pedido_dados['cliente']}: {e}")
+        except ValidationError as error:
+            print(f"✗ Erro validação pedido {pedido_dados['cliente']}: {error}")
+        except Exception as error:
+            print(f"✗ Erro inesperado pedido {pedido_dados['cliente']}: {error}")
 
     print("\nFim processamento PetroBahia")
 
