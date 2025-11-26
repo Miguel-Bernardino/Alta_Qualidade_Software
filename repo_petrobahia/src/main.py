@@ -42,16 +42,15 @@ def executar():
     print("Início processamento PetroBahia")
     print("\n[1] Cadastrando clientes...")
     clientes_criados = {}
-    for c in clientes:
+    for client in clientes:
         try:
-            cliente = cliente_service.criar_cliente(c["email"], c["nome"], c["cnpj"])
-            clientes_criados[c["nome"]] = cliente
-            print(f"✓ Cliente salvo: {c['nome']}")
+            cliente = cliente_service.criar_cliente(client["email"], client["nome"], client["cnpj"])
+            clientes_criados[client["nome"]] = cliente
+            print(f"✓ Cliente salvo: {client['nome']}")
         except ValidationError as e:
-            print(f"✗ Falha validação {c['nome']}: {e}")
+            print(f"✗ Falha validação {client['nome']}: {e}")
         except Exception as e:
-            print(f"✗ Erro inesperado {c['nome']}: {e}")
-
+            print(f"✗ Erro inesperado {client['nome']}: {e}")
     print("\n[2] Criando pedidos...")
     pedidos_dados = [
         {"cliente": "TransLog", "produto": "diesel", "qtd": 1200, "cupom": "MEGA10"},
